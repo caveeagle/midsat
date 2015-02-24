@@ -313,78 +313,9 @@ function midsat_makeMetaParams(opts)
 	 
 		var STN_NAME = opts.DATA.common.station;
 		
-		var tab_catalog_url;
-   
-		if(midsat_tab_catalog_config[STN_NAME])
-		{
-				tab_catalog_url = midsat_tab_catalog_config[STN_NAME]['URL'];
-		}
-	
-    if(tab_catalog_url)
-    {   
-				var script_name = "/alltlm-cgi/seances.pl";
-				
-				var base_tabs_catalog_url = "http://"+tab_catalog_url+script_name;
-				
-				if( (params.satellite=="MSU-MR") )
-				{
-						// No MSU-MR catalogs
-						
-						if(products_color==passive_color)
-						{
-								params.sat_color = passive_color;
-						}
-						else
-						{	
-								params.sat_color = 'color="#000000"';
-						}	
-						params.clink_begin = "";
-						params.clink_end = "";
-				}	
-				else
-				{
-						if(products_color==passive_color)
-						{
-								params.sat_color = passive_color;
-						}
-						else
-						{	
-								params.sat_color = 'color="#0000C0"';
-						}	
-				
-						// Set sat.name
-						var sat = params.satellite;
-						if(  ((params.satellite).indexOf('NOAA') + 1) )
-						{
-								sat = "NOAA";
-						}	
-				
-				    // Make link for table catalog
-				
-						var reg = new RegExp("(\\d\\d\\d\\d-\\d\\d-\\d\\d) ");
-						
-						var sdate = reg.exec(params.dt);
-						
-						var tabs_catalog_url = base_tabs_catalog_url+"?skin=nffc&start_year=&volume=&lang=russian";
-						
-						tabs_catalog_url = tabs_catalog_url+"&date="+sdate[1];      
-						
-						tabs_catalog_url = tabs_catalog_url+"&sensor="+sat;      
-						
-						tabs_catalog_url = tabs_catalog_url+"&center="+params.station;      
-						
-						params.clink_begin = '<a href="'+tabs_catalog_url+'" target="catalog">';
-						params.clink_end = '<\a>';
-				
-				}
-				
-	}
-	else
-  {
 	    params.sat_color = 'color="#000000"';
 	    params.clink_begin = "";
 	   	params.clink_end = "";
-	}
 
 
 

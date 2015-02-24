@@ -9,11 +9,6 @@
 } 
 </style>
 
-
-<script	type="text/javascript"> 
-var midsat_tab_catalog_config = <!--#include virtual="/geosmis/tabs/midsat/cgi/get_tab_catalogs_config.pl" --> ;
-</script>                         
-
 <script type="text/javascript" src="/geosmis/tabs/midsat2/midsat1.js"></script>
 
 <!--#if expr="$PROJECT=volcanoes" -->
@@ -128,22 +123,28 @@ var midsat_tab_catalog_config = <!--#include virtual="/geosmis/tabs/midsat/cgi/g
 									  	</div>
 									</fieldset>
 
-									<fieldset>
-										<legend  id=tip_midsat_024><a onFocus="if(this.blur) this.blur()" href="javascript:toggle_group('group_midsat_prod')"><img src="/images/arrow_opened.gif" id ="group_midsat_prod_img" alt="" />&nbsp;
-										<span id="tab_midlayers_data_products_label">Продукты</span>&nbsp;</a></legend>
-										<div id="group_midsat_prod">
+    								<div id="group_midsat_prod_label"
+    								    style="padding-top: 5px;
+    								           padding-bottom: 3px;  
+    								           padding-left: 5px;
+    								           font-size: 14px;"
+    								>
+									    Продукты:
+									</div>
 
-                                            <form name=midsat_product_filter>
-                                                 <span id="_midsat_prod_list_div">
-                                                 </span>
+                                    <form name=midsat_product_filter>
+                                         <span id="_midsat_prod_list_div">
+                                         </span>
 
-	<!--#if expr="$SERVER_NAME!=vega.geoglam.ru" -->
-	                                               <a  id=tip_midsat_prod_help href="composite_info" onclick="composite_info();return false;">
-                                                 <font color="#0000FF"><small><b>?</b></small></font>
-                                                 </a>
-  <!--#endif -->
-                                                 
-                                            </form>
+                                    <!--#if expr="$SERVER_NAME!=vega.geoglam.ru" -->
+                                        <a  id=tip_midsat_prod_help href="composite_info" onclick="composite_info();return false;">
+                                         <font color="#0000FF"><small><b>?</b></small></font>
+                                        </a>
+                                    <!--#endif -->
+                                         
+                                    </form>
+                                            
+                                   <div style="padding: 4px;"><!-- вертикальный отступ --></div>
 
 							<!-- ADDITIONAL PRODUCTS SECTION -->
 							
@@ -172,19 +173,18 @@ var midsat_tab_catalog_config = <!--#include virtual="/geosmis/tabs/midsat/cgi/g
                                             
 
                                             
-
-									  	</div>
-									</fieldset>
                                           
-
-									<fieldset>
-										<legend id=tip_midsat_027><a onFocus="if(this.blur) this.blur()" href="javascript:toggle_group('group_midsat_mod')"><img src="/images/arrow_opened.gif" id ="group_midsat_mod_img" alt="" />&nbsp;
-										<span id="tab_midlayers_background_label">Фоновое покрытие</span>&nbsp;</a></legend>
-										<div id="group_midsat_mod">
-
-											<!--<b>Фоновое покрытие</b><hr>-->
-											
-											
+                                            
+                                            
+            								<div style="padding-top: 5px;
+            								           padding-bottom: 3px;  
+            								           padding-left: 5px;
+            								           font-size: 14px;"
+            								>
+        									<span id="group_midsat_mod_label">Фоновое покрытие:</span>
+        									</div>
+                                            
+                                            
 											<table border="0" cellspacing="0" cellpadding="1" style="font-family: times;font-size: 12px;">
  
 											  <tr>
@@ -216,8 +216,6 @@ var midsat_tab_catalog_config = <!--#include virtual="/geosmis/tabs/midsat/cgi/g
  
 											</table>
 
-									  	</div>
-									</fieldset>
 									<br>
                 
                 <!--#config errmsg="" -->
