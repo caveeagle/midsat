@@ -1,0 +1,65 @@
+<script	type="text/javascript">
+
+if(	typeof( LANGUAGE_OBJ_HTML ) ==	"undefined") { LANGUAGE_OBJ_HTML={}; }
+
+//!!! CHANGE _tab_id TO PROPER
+var _tab_id = 'tab_midlayers';
+
+if(	typeof( LANGUAGE_CSS_TABS_HINT ) ==	"undefined") { LANGUAGE_CSS_TABS_HINT={}; }
+// Hash ID - CSS class name for tab icon without 'dot'
+LANGUAGE_CSS_TABS_HINT[_tab_id] = 
+{
+	rus:{ tab_mrsat_icon: 'Данные среднего разрешения' },
+	eng:{ tab_mrsat_icon: 'Moderate resolution data' }
+}
+
+
+LANGUAGE_OBJ_HTML[_tab_id] = 
+{
+	rus:
+	{
+		tab_midlayers: { title: 'Данные среднего разрешения' },
+		tab_midlayers_tabname: { innerHTML: 'Данные среднего разрешения' },
+		midsat_visible_control: { title: 'Скрыть/показать данные' },
+		tab_midlayers_date_label: { innerHTML: 'За дату:' }, 
+		tab_midlayers_data_filter_label: { innerHTML: 'Фильтр данных' }, 
+		tab_midlayers_data_poly_label: { innerHTML: 'Только по заданному полигону' },
+		tab_midlayers_data_satellite_label: { innerHTML: 'Спутник:' }, 
+		tab_midlayers_data_station_label: { innerHTML: 'Центр получения данных:' }, 
+		tab_midlayers_data_list_label: { innerHTML: 'Список сеансов' }, 
+		tab_midlayers_data_basket_label: { value: 'В корзину' }, 
+		tab_midlayers_data_clear_selection: { value: 'Снять выделение' }, 
+		tab_midlayers_data_products_label: { innerHTML: 'Продукты' }, 
+		tab_midlayers_background_label: { innerHTML: 'Фоновое покрытие' }, 
+		tab_midlayers_background_none_label: { innerHTML: 'Не отображать' }, 
+		tab_midlayers_background_contour_label: { innerHTML: 'Контура' }, 
+		tab_midlayers_background_image_label: { innerHTML: 'Изображения (по продукту)' }
+	},
+	eng:
+	{
+		tab_midlayers: { title: 'Moderate resolution data' },
+		tab_midlayers_tabname: { innerHTML: 'Moderate resolution data' },
+		midsat_visible_control: { title: 'Show/hide data' },
+		tab_midlayers_date_label: { innerHTML: 'Date:' },
+		tab_midlayers_data_filter_label: { innerHTML: 'Data filter' }, 
+		tab_midlayers_data_poly_label: { innerHTML: 'Use polygon' },
+		tab_midlayers_data_satellite_label: { innerHTML: 'Satallite:' }, 
+		tab_midlayers_data_station_label: { innerHTML: 'Data center:' }, 
+		tab_midlayers_data_list_label: { innerHTML: 'Data list' }, 
+		tab_midlayers_data_basket_label: { value: 'To the basket' }, 
+		tab_midlayers_data_clear_selection: { value: 'Deselect' }, 
+		tab_midlayers_data_products_label: { innerHTML: 'Products for selected image' }, 
+		tab_midlayers_background_label: { innerHTML: 'Area coverage' }, 
+		tab_midlayers_background_none_label: { innerHTML: 'Do not display ' }, 
+		tab_midlayers_background_contour_label: { innerHTML: 'Scenes’ boundaries' }, 
+		tab_midlayers_background_image_label: { innerHTML: 'Images' }
+	}
+}
+
+if(	typeof( _GEOSMIS_MULTITAB_UI )!="undefined"  && _GEOSMIS_MULTITAB_UI==1) 
+{
+	delete LANGUAGE_OBJ_HTML[_tab_id].rus[_tab_id].title;
+	delete LANGUAGE_OBJ_HTML[_tab_id].eng[_tab_id].title;
+}
+
+</script>

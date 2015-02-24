@@ -1,0 +1,235 @@
+<!--#config errmsg="" -->
+
+<style type="text/css">
+.tab_mrsat_icon {
+	background-image: url('/geosmis/tabs/midsat2/icon_mrsat_dev.png'); 
+	width: 23px;
+	height: 23px;
+	margin-left: 3px;
+} 
+</style>
+
+
+<script	type="text/javascript"> 
+var midsat_tab_catalog_config = <!--#include virtual="/geosmis/tabs/midsat/cgi/get_tab_catalogs_config.pl" --> ;
+</script>                         
+
+<script type="text/javascript" src="/geosmis/tabs/midsat2/midsat1.js"></script>
+
+<!--#if expr="$PROJECT=volcanoes" -->
+    <script type="text/javascript" src="/geosmis_projects/volcanoes/tabs/ash_palette/ash_palette_v2.js"></script>
+<!--#endif -->
+
+
+<div  id="tab_midlayers" data-dojo-type="dijit/layout/ContentPane" data-dojo-props='
+			iconClass:"tab_mrsat_icon",
+			onShow: function(){}'>
+
+            <div class="reducer">
+                        
+						<div style="padding:5px;">
+							
+					            		<div align=left><input type="checkbox" title="Скрыть/показать данные" id="midsat_visible_control" onclick="setMidsatVisible(this.checked);" value="" checked/>&nbsp;<b><span id='tab_midlayers_tabname'>Данные среднего разрешения</span></b><!--<hr>--></div>
+					            		
+										<hr>
+					                    <span id=tip_midsat_001><span id='tab_midlayers_date_label'>За дату:</span> &nbsp;<b><u></span>
+					                    <span id="midsat_date_field" onclick="scwNextAction=midsat_date_change.runsAfterSCW(this,this.id);scwShow(this,event);" style="cursor: pointer;"> 2010-08-18</span></u></b>
+					                    &nbsp;
+					                 <img id=tip_midsat_002 src="/images/prev_min.gif" onclick="date_change(-1);" align="absbottom">
+					                 <img id=tip_midsat_003 src="/images/next_min.gif" onclick="date_change(1);" align="absbottom">
+					                 <img id=tip_midsat_004 src="/images/calend.gif" onclick="scwNextAction=midsat_date_change.runsAfterSCW(this,this.id);scwShow(scwID('midsat_date_field'),event);" align="absbottom">
+										<br>
+										<br>
+
+					  
+									<fieldset>
+										<legend id=tip_midsat_005><a onFocus="if (this.blur) this.blur()" href="javascript:toggle_group('group_midsat_find')"><img src="/images/arrow_closed.gif" id ="group_midsat_find_img" alt="" />&nbsp;&nbsp;<span id="tab_midlayers_data_filter_label">Фильтр данных</span>&nbsp;</a></legend>
+										<div id="group_midsat_find" style="display: none">
+					  
+											<!-- FILTERS SECTION -->
+											
+											
+											<!--#if expr="$PROJECT=aviales" -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_isdm.sht" -->
+				
+											<!--#elif expr="$PROJECT=united" -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_united.sht" -->
+				
+											<!--#elif expr="$PROJECT=gazprom" -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_gazprom.sht" -->
+				
+											<!--#elif expr="$PROJECT=kha" -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_kha.sht" -->
+											
+											<!--#elif expr="$PROJECT=volcanoes" -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_volcanoes.sht" -->
+											
+											<!--#elif expr="$PROJECT=ncomz" -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_ncomz.sht" -->
+											
+											<!--#else -->
+													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_open.sht" -->
+				
+											<!--#endif -->
+				
+				                                        
+											<!-- END OF FILTERS SECTION -->
+									  	</div>
+									</fieldset>
+																		
+									<fieldset>
+										<legend id=tip_midsat_020><a onFocus="if(this.blur) this.blur()" href="javascript:toggle_group('group_midsat_list')"><img src="/images/arrow_opened.gif" id ="group_midsat_list_img" alt="" />&nbsp;&nbsp;<span id="tab_midlayers_data_list_label">Список сеансов</span>&nbsp;</a></legend>
+										<div id="group_midsat_list">
+										
+										
+									
+											<div class="list_info" id=_metadata_midsat_portion_info></div>
+											
+											<div id=_metadata_midsat style="height:283px; overflow:auto;" >&nbsp</div>
+
+
+										    <!--<hr>-->
+
+											<table border="0" cellspacing=0 cellpadding=0 width="100%">
+											  <tr>
+											    <td width=10 style="padding-left: 8px;">
+											    	<button  id=tip_midsat_021 style="width: 16px; height:20px; background: #D4D0C8;" onClick="metaobj_midsat.PrevSelection();"><img src="/images/list_up_raw.gif" /></button>
+											    </td>
+											    <td width=10 style="padding-left: 4px;">
+											    	<!--<button style="width: 16px; height:20px; background: #D4D0C8;" onClick="metaobj_midsat.ClearSelection();midsat_OnMetaClick();"><img src="/images/list_unsel_raw.gif" /></button>-->
+											    </td>
+											    
+											    <td style="padding-left: 10px;">
+											    	&nbsp;
+											    </td>
+											    <td align="right">
+											    	<input  id=tab_midlayers_data_basket_label type=button value="В корзину" style="width: 90px; font-size:10px;font-weight: bold;background: #D4D0C8;" onclick="midsat2Basket();">
+											    </td>
+
+											  </tr>
+											  <tr>
+											    <td style="padding-left: 8px;">
+											    	<button  id=tip_midsat_023 style="width: 16px; height:20px; background: #D4D0C8;" onClick="metaobj_midsat.NextSelection();"><img src="/images/list_dwn_raw.gif" /></button>
+											    </td>
+											    <td>&nbsp;</td>
+
+											    <td style="padding-left: 10px;">
+											    	&nbsp;
+											    </td>
+											    <td align="right">
+	    											<input type=button id=tab_midlayers_data_clear_selection value="Снять выделение" style="width: 90px; font-size:10px;background: #D4D0C8;" onclick="clearSelectionMidsat();">
+											    </td>
+											    
+											    
+											  </tr>
+											</table>
+
+
+									  	</div>
+									</fieldset>
+
+									<fieldset>
+										<legend  id=tip_midsat_024><a onFocus="if(this.blur) this.blur()" href="javascript:toggle_group('group_midsat_prod')"><img src="/images/arrow_opened.gif" id ="group_midsat_prod_img" alt="" />&nbsp;
+										<span id="tab_midlayers_data_products_label">Продукты</span>&nbsp;</a></legend>
+										<div id="group_midsat_prod">
+
+                                            <form name=midsat_product_filter>
+                                                 <span id="_midsat_prod_list_div">
+                                                 </span>
+
+	<!--#if expr="$SERVER_NAME!=vega.geoglam.ru" -->
+	                                               <a  id=tip_midsat_prod_help href="composite_info" onclick="composite_info();return false;">
+                                                 <font color="#0000FF"><small><b>?</b></small></font>
+                                                 </a>
+  <!--#endif -->
+                                                 
+                                            </form>
+
+							<!-- ADDITIONAL PRODUCTS SECTION -->
+							
+							
+							<!--#if expr="$PROJECT=aviales" -->
+									<!--#include virtual="/geosmis_projects/common/tabs/midsat/products_isdm.sht" -->
+							
+							<!--#elif expr="$PROJECT=fap" -->
+									<!--#include virtual="/geosmis_projects/common/tabs/midsat/products_vega.sht" -->
+
+							<!--#elif expr="$PROJECT=united" -->
+									<!--#include virtual="/geosmis_projects/common/tabs/midsat/products_united.sht" -->
+							
+							<!--#elif expr="$PROJECT=kha" -->
+									<!--#include virtual="/geosmis_projects/common/tabs/midsat/products_kha.sht" -->
+							
+							<!--#elif expr="$PROJECT=volcanoes" -->
+									<!--#include virtual="/geosmis_projects/common/tabs/midsat/products_volcanoes.sht" -->
+							
+							<!--#else -->
+							
+							<!--#endif -->
+                                        
+                                        
+							<!-- END OF ADDITIONAL PRODUCTS SECTION -->                            
+                                            
+
+                                            
+
+									  	</div>
+									</fieldset>
+                                          
+
+									<fieldset>
+										<legend id=tip_midsat_027><a onFocus="if(this.blur) this.blur()" href="javascript:toggle_group('group_midsat_mod')"><img src="/images/arrow_opened.gif" id ="group_midsat_mod_img" alt="" />&nbsp;
+										<span id="tab_midlayers_background_label">Фоновое покрытие</span>&nbsp;</a></legend>
+										<div id="group_midsat_mod">
+
+											<!--<b>Фоновое покрытие</b><hr>-->
+											
+											
+											<table border="0" cellspacing="0" cellpadding="1" style="font-family: times;font-size: 12px;">
+ 
+											  <tr>
+											    <td id=tip_midsat_028>
+											      	<input id=immode_none checked name=imode type="radio" onclick="setMidsatLayers();">
+											      	<label> <!--style="font-weight: bold;"-->
+											      		<span id='tab_midlayers_background_none_label'>Не отображать</span>
+											      	</label>
+											    </td>
+											  </tr>
+ 
+											  <tr>
+											    <td id=tip_midsat_029>
+											      	<input id=immode_contour name=imode type="radio" onclick="setMidsatLayers();">
+											      	<label> <!--style="font-weight: bold;"-->
+											      		<span id='tab_midlayers_background_contour_label'>Контура</span>
+											      	</label>
+											    </td>
+											  </tr>
+ 
+											  <tr>
+											    <td id=tip_midsat_030>
+											      	<input id=immode_img name=imode type="radio" onclick="setMidsatLayers();">
+											      	<label> <!--style="font-weight: bold;"-->
+											      		<span id='tab_midlayers_background_image_label'>Изображения (по продукту)</span>
+											      	</label>
+											    </td>
+											  </tr>
+ 
+											</table>
+
+									  	</div>
+									</fieldset>
+									<br>
+                
+                <!--#config errmsg="" -->
+								<!-- Manual hotspots --> 
+								<!--#include virtual="/geosmis_projects/common/manual_hotspots/html/manual_hs_interface.shtml" -->
+									
+								</div>
+
+            </div>
+
+</div>
+
+<!--#config errmsg="" -->
+<!--#include virtual="midsat_lang.sht" -->
+
