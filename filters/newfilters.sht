@@ -1,0 +1,33 @@
+
+<!--#config errmsg="" -->
+
+<script type="text/javascript">
+
+    var MIDSAT2STORE = {};
+
+    var satdata_MIDSAT2 = <!--#include virtual="/geosmis/tabs/common_satellites_tabs/cgi/get_sat_devices_list.pl?sat_type=midsat" -->
+
+
+    var stndata_MIDSAT2 = <!--#include virtual="/geosmis/tabs/common_satellites_tabs/cgi/get_sat_sources_list.pl?sat_type=midsat" -->
+
+
+</script>
+
+    <fieldset>
+    	<legend><a onFocus="if (this.blur) this.blur()" href="javascript:toggle_group('group_filters_hide_midsat')">
+    	    <img src="/images/arrow_closed.gif" id="group_filters_hide_midsat_img" alt="" />&nbsp;
+    	    <span style="font-size:14px;" id="group_filters_hide_midsat_tm_label">Фильтр</span>&nbsp;</a>
+    	</legend>
+    	<div id="group_filters_hide_midsat" style="display: none">  
+    	    
+          <!--#include virtual="/geosmis/tabs/midsat2/filters/sat_filter.shtml" -->
+                										    
+          <!--#include virtual="/geosmis/tabs/midsat2/filters/stn_filter.shtml" -->
+          
+          <!--#include virtual="/geosmis/tabs/midsat2/filters/misc_filter.shtml" -->
+          
+  	    </div>
+  	    
+    </fieldset>
+					            		
+            

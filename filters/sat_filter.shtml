@@ -1,0 +1,108 @@
+
+<style type="text/css">
+    @import "/geosmis/tabs/midsat2/css/tree_claro.css";
+</style>
+
+
+<script type="text/javascript">
+
+var _satModelMidsat;        
+
+require([ "dojo/ready","dojo/store/Memory","cbtree/Tree","cbtree/model/TreeStoreModel"],
+    function( ready, Memory, Tree, ObjectStoreModel) {
+            
+            var label_name_field = "name";
+            var root_label_name = "Приборы (спутники)";
+            
+            if(project_language=="eng")
+            {
+             label_name_field = "engname";
+             root_label_name = "Devices (satellites)";   
+            }    
+            
+            ready(function(){
+                makeHrsatSatellitesTree();
+            }); 
+                    
+                    
+			function makeHrsatSatellitesTree()
+			{
+				MIDSAT2STORE = new Memory( { data: satdata_MIDSAT2 });
+				
+				_satModelMidsat = new ObjectStoreModel( { store: MIDSAT2STORE,
+												 query: {id: "Devs"},
+												 labelAttr: label_name_field, 
+												 labelType: "html",
+												 rootLabel: root_label_name,
+												 checkedRoot: true
+											 });
+					satTreeMidsat = new Tree( 
+					{ 
+                        model: _satModelMidsat, 
+                        id:"treeSatMidsat",
+                        attachToForm:true,
+                        checkBoxes: true,
+                        nodeIcons: false,						    
+                        leafIcons: false,
+                        autoExpand: true,
+                        
+                        getTreeNodeById: function( id ) // new function to find DOM Tree node
+                        {
+                            return this._itemNodesMap[ id ][0];
+                        },
+                        branchIcons: false
+                        
+					}, "checkboxMidsatTreeDiv" ); 
+                    
+					satTreeMidsat.startup();
+
+					satTreeMidsat.on("click",satDeviceChanged);
+					
+					satTreeMidsat.on("load",satTreeOnLoad); 
+		    }
+		    
+            function satDeviceChanged(item, node, event)
+            {
+              newMidsatFiltersChanged();
+            }    		
+            
+            function satTreeOnLoad()
+            {
+                collapseChildrenNodes();
+            }    
+            
+            function collapseChildrenNodes()
+            {
+                /* Collapse children */
+                var ROOT_ID = "Devs";
+                
+                var satstore = MIDSAT2STORE;
+                
+            	dojo.when(satstore.getChildren(satstore.get(ROOT_ID)), function (children) {
+            	    children.forEach(function (child) 
+            	    { 
+            	           //console.info("Children: " + child.name);
+            			   var treeNode = satTreeMidsat.getTreeNodeById(child.id);
+            			   treeNode.collapse();
+            	    });
+            	});
+            }  
+            
+		        		
+});
+
+function getSatModelMidsat()
+{
+    return _satModelMidsat;
+}        
+
+
+</script>
+
+<div class="claro">
+    <form name="satFormMidsat" id=satFormMidsatId>
+	    <div id="checkboxMidsatTreeDiv"></div>
+    </form>
+</div>
+
+

@@ -1,0 +1,98 @@
+
+<script type="text/javascript">
+require([
+	"dojo/ready",
+	"dojo/store/Memory",					 // basic dojo/store
+	"cbtree/Tree",								 // Checkbox tree
+	"cbtree/model/TreeStoreModel"	// ObjectStoreModel
+	], function( ready, Memory, Tree, ObjectStoreModel) {
+			// Declare an JSON object
+
+                    
+                    
+                    var label_name_field = "name";
+                    var root_label_name = "Центры данных";
+                    
+                    if(project_language=="eng")
+                    {
+                     label_name_field = "engname";
+                     root_label_name = "Data centers";   
+                    }    
+                            
+					var stnstore = new Memory( { data: stndata_MIDSAT2 });
+					_stnModelMidsat = new ObjectStoreModel( { store: stnstore,
+													 query: {id: "Stn"},
+													 labelAttr: label_name_field,
+													 labelType: "html",
+													 rootLabel: root_label_name,
+													 checkedRoot: true
+												 });
+                    
+					ready(function()
+					{
+						stnTreeMidsat = new Tree( 
+						{ 
+                            model: _stnModelMidsat, 
+                            id:"treeStnMidsat",
+                            attachToForm:true,
+                            checkBoxes: true,
+                            nodeIcons: false,						    
+                            leafIcons: false,
+                            autoExpand: true,
+                            getTreeNodeById: function( id ) // new function to find DOM Tree node
+                            {
+                                return this._itemNodesMap[ id ][0];
+                            },
+                            branchIcons: false
+                            
+						}, "CheckboxTreeStnMidsat" );
+
+						stnTreeMidsat.startup();
+
+						stnTreeMidsat.on("click",stnChanged);
+						
+						stnTreeMidsat.on("load",stnTreeOnLoad); 
+				}); 
+				
+ 				function stnChanged(item, node, event)
+ 				{
+                   newMidsatFiltersChanged();
+ 			    }    		
+				
+                function stnTreeOnLoad()
+                {
+                    collapseChildrenNodes();
+                }    
+       
+                function collapseChildrenNodes()
+                {
+                    /* Collapse children */
+                    var ROOT_ID = "Stn";
+                    
+                	dojo.when(stnstore.getChildren(stnstore.get(ROOT_ID)), function (children) {
+                	    children.forEach(function (child) 
+                	    { 
+                	           //console.info("Children: " + child.name);
+                			   var treeNode = stnTreeMidsat.getTreeNodeById(child.id);
+                			   treeNode.collapse();
+                	    });
+                	});
+                }    
+                 
+                 
+});
+
+function getStnModelMidsat()
+{
+    return _stnModelMidsat;
+}        
+
+</script>
+
+
+	<div class="claro">
+        <form name="stnFormMidsat" id=stnFormMidsatId>
+		    <div id="CheckboxTreeStnMidsat"></div>
+	    </form>
+	</div>	
+   

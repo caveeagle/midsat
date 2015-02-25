@@ -35,7 +35,11 @@
 					                 <img id=tip_midsat_004 src="/images/calend.gif" onclick="scwNextAction=midsat_date_change.runsAfterSCW(this,this.id);scwShow(scwID('midsat_date_field'),event);" align="absbottom">
 										<br>
 										<br>
-
+                                     
+                                     
+                                     <!--#config errmsg="" -->
+                                     <!--#include virtual="/geosmis/tabs/midsat2/filters/newfilters.sht" -->
+                                     
 					  
 									<fieldset>
 										<legend id=tip_midsat_005><a onFocus="if (this.blur) this.blur()" href="javascript:toggle_group('group_midsat_find')"><img src="/images/arrow_closed.gif" id ="group_midsat_find_img" alt="" />&nbsp;&nbsp;<span id="tab_midlayers_data_filter_label">Фильтр данных</span>&nbsp;</a></legend>
