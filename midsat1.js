@@ -654,19 +654,6 @@ function redrawProductList()
 
 function setMidsatLayers()
 {   
-	if(multi_midsat_on)
-	{
-		setMultiMidsatLayers();
-		return;
-	}
-	else
-	{
-		globalAlert("Ошибка модуля: multi_midsat_on должен быть выставлен в 1");
-	}		
-}	
-
-function setMultiMidsatLayers()
-{   
 	selected_uid = 0;
 	selected_uid_layer = "mrsat";
 
@@ -861,11 +848,6 @@ function midsat2Basket()
 	   }
 	}	
 
-  if(multi_midsat_on==0)
-    {
-		msat[0]['products']['layer'] = 'mrsat';
-	}	
-
 	metaBasket.addData(msat);
 	metaBasket.render();
 }	
@@ -920,20 +902,11 @@ function clearSelectionMidsat()
 {
 	metaobj_midsat.ClearSelection(); 
 
-        
-    if(multi_midsat_on)
-    {
-		mapobj.LayerHide('mrsat_multi');
-		mapobj.LayerHide('mrsat_tif');
-		
-		mapobj.LayerHide('mrsat_multi_contour');
-		mapobj.LayerHide('mrsat_tif_contour');
-   }
-   else
-   {
-		mapobj.LayerHide('mrsat');
-		mapobj.LayerHide('mrsat_contour');
-	}	
+	mapobj.LayerHide('mrsat_multi');
+	mapobj.LayerHide('mrsat_tif');
+	
+	mapobj.LayerHide('mrsat_multi_contour');
+	mapobj.LayerHide('mrsat_tif_contour');
 	
 }
 
