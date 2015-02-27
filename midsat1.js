@@ -105,58 +105,60 @@ function reload_midsat_parameters()
 	setMidsatLayers();
 }
 
-
 function make_midsat_params()
 {
    var midsat_date = document.getElementById("midsat_date_field").innerHTML;
 	
    var fiter_array = new Object();
+   
    fiter_array.sats = new Array();
-   midsat_sats_str="";
-   if(document.midsat_satelites_form)
+   midsat_sats_str=""; 
+   
+   if(filterMidsatObj['sats'])
    {
-	   var never_sat = 1;
-	   
-	   for(i=0; i<(document.midsat_satelites_form.length); i++)
-	   {
-	      if(document.midsat_satelites_form.elements[i].checked)
-	      {
-	         never_sat = 0;
-	         
-	         var l_name = document.midsat_satelites_form.elements[i].name;
-	         fiter_array.sats[fiter_array.sats.length] = l_name;
-	         
-	         if(l_name=="NOAA")
-	         { 
-	         	midsat_sats_str=midsat_sats_str+NOAA_STR;
-	         }
-	         else
-	         {
-	         	midsat_sats_str=midsat_sats_str+l_name+",";
-	         }
-	      }  
-	   }
-	   if(never_sat==1){midsat_sats_str="never_sat";}
+       for( i=0; i < filterMidsatObj['sats'].length; i++ ) 
+       {
+             var l_name = filterMidsatObj['sats'][i];
+      
+             fiter_array.sats[fiter_array.sats.length] = l_name;
+             
+             midsat_sats_str=midsat_sats_str+l_name+",";
+       }
+       
+       if(filterMidsatObj['sats'].length==0)
+       {
+             var l_name = "NEVER_SAT"; // to avoid all sats in metadata 
+      
+             fiter_array.sats[fiter_array.sats.length] = l_name;
+             
+             midsat_sats_str=midsat_sats_str+l_name+",";
+       }
    }
-
+   
    // Make station list
    fiter_array.stn = new Array();
    midsat_stn_str="";
-   if(document.midsat_stations_form)
+   
+   if(filterMidsatObj['stns'])
    {
-	   for(i=0; i<(document.midsat_stations_form.length); i++)
-	   {
-	      if(document.midsat_stations_form.elements[i].checked)
-	      {
-	         var l_name = document.midsat_stations_form.elements[i].name;
-	         fiter_array.stn[fiter_array.stn.length] = l_name;
-
-	         midsat_stn_str=midsat_stn_str+l_name+",";
-	      }  
-	   }
+        for (i=0;i<filterMidsatObj['stns'].length;i++)
+        {
+            var l_name =filterMidsatObj['stns'][i];
+    	    
+    	    fiter_array.stn[fiter_array.stn.length] = l_name;
+    
+    	    midsat_stn_str=midsat_stn_str+l_name+",";
+        }
+       if(filterMidsatObj['stns'].length==0)
+       {
+             var l_name = "NEVER_STN"; // to avoid all sats in metadata 
+      
+    	    fiter_array.stn[fiter_array.stn.length] = l_name;
+    
+    	    midsat_stn_str=midsat_stn_str+l_name+",";
+       }
+        
    }
-    
-    
     midsat_filter = JSON.stringify(fiter_array);
     
 	var srs_string = "";
@@ -189,6 +191,7 @@ function make_midsat_params()
 	}
    
 }	 
+
 
 function setMidsatVisible(i)
 {
@@ -1093,7 +1096,7 @@ function setMidsatTabState(load_obj)
 
   if(obj['IS_ACTIVE'])
   {
-  		setActiveProduct();
+  		    setActiveProduct();
 			make_midsat_params();
 			metaobj_midsat.SetDataParams(midsat_params);
   		

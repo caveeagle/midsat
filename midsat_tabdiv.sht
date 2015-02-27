@@ -10,8 +10,8 @@
 </style>
 
 <script type="text/javascript" src="/geosmis/tabs/midsat2/midsat1.js"></script>
-
 <script type="text/javascript" src="/geosmis/tabs/midsat2/midsat2.js"></script>
+
 
 <!--#if expr="$PROJECT=volcanoes" -->
     <script type="text/javascript" src="/geosmis_projects/volcanoes/tabs/ash_palette/ash_palette_v2.js"></script>

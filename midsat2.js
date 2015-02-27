@@ -10,7 +10,7 @@ var filterMidsatObj = {}; // Global, for midsat1.js
 function newMidsatFiltersChanged()
 {
     filterMidsatObj = getFiltersState();
-    //reload_midsat_parameters();
+    reload_midsat_parameters();
     
     if(qs_param['debug'])
     {
