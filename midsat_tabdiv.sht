@@ -44,41 +44,6 @@
                                      
 					  
 									<fieldset>
-										<legend id=tip_midsat_005><a onFocus="if (this.blur) this.blur()" href="javascript:toggle_group('group_midsat_find')"><img src="/images/arrow_closed.gif" id ="group_midsat_find_img" alt="" />&nbsp;&nbsp;<span id="tab_midlayers_data_filter_label">Фильтр данных</span>&nbsp;</a></legend>
-										<div id="group_midsat_find" style="display: none">
-					  
-											<!-- FILTERS SECTION -->
-											
-											
-											<!--#if expr="$PROJECT=aviales" -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_isdm.sht" -->
-				
-											<!--#elif expr="$PROJECT=united" -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_united.sht" -->
-				
-											<!--#elif expr="$PROJECT=gazprom" -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_gazprom.sht" -->
-				
-											<!--#elif expr="$PROJECT=kha" -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_kha.sht" -->
-											
-											<!--#elif expr="$PROJECT=volcanoes" -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_volcanoes.sht" -->
-											
-											<!--#elif expr="$PROJECT=ncomz" -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_ncomz.sht" -->
-											
-											<!--#else -->
-													<!--#include virtual="/geosmis_projects/common/tabs/midsat/filters_open.sht" -->
-				
-											<!--#endif -->
-				
-				                                        
-											<!-- END OF FILTERS SECTION -->
-									  	</div>
-									</fieldset>
-																		
-									<fieldset>
 										<legend id=tip_midsat_020><a onFocus="if(this.blur) this.blur()" href="javascript:toggle_group('group_midsat_list')"><img src="/images/arrow_opened.gif" id ="group_midsat_list_img" alt="" />&nbsp;&nbsp;<span id="tab_midlayers_data_list_label">Список сеансов</span>&nbsp;</a></legend>
 										<div id="group_midsat_list">
 										

@@ -49,12 +49,12 @@ require([
 
 						stnTreeMidsat.startup();
 
-						stnTreeMidsat.on("click",stnChanged);
+						stnTreeMidsat.on("click",stnMidsatChanged);
 						
 						stnTreeMidsat.on("load",stnTreeOnLoad); 
 				}); 
 				
- 				function stnChanged(item, node, event)
+ 				function stnMidsatChanged(item, node, event)
  				{
                    newMidsatFiltersChanged();
  			    }    		

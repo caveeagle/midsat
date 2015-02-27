@@ -9,7 +9,7 @@ var filterMidsatObj = {}; // Global, for midsat1.js
 
 function newMidsatFiltersChanged()
 {
-    filterMidsatObj = getFiltersState();
+    filterMidsatObj = getMidsatFiltersState();
     reload_midsat_parameters();
     
     if(qs_param['debug'])
@@ -18,7 +18,7 @@ function newMidsatFiltersChanged()
     }     
 }    
 
-function getFiltersState()
+function getMidsatFiltersState()
 {
     var filterSats = new Array();
     var filterDevs = new Array();
@@ -89,7 +89,7 @@ function getFiltersState()
     
     
     
-    var collect2  = document.forms["stnform"].elements;
+    var collect2  = document.forms["stnFormMidsat"].elements;
     var elements2 = Array.prototype.slice.call(collect2);
     elements2.forEach( function (element) 
     {

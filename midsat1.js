@@ -149,6 +149,7 @@ function make_midsat_params()
     
     	    midsat_stn_str=midsat_stn_str+l_name+",";
         }
+        
        if(filterMidsatObj['stns'].length==0)
        {
              var l_name = "NEVER_STN"; // to avoid all sats in metadata 
