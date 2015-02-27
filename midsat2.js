@@ -9,12 +9,12 @@ var filterMidsatObj = {}; // Global, for midsat1.js
 
 function newMidsatFiltersChanged()
 {
-    filterObj = getFiltersState();
-    reload_hrsat_parameters();
+    filterMidsatObj = getFiltersState();
+    //reload_midsat_parameters();
     
     if(qs_param['debug'])
     {
-        debugFilterOutput();
+        debugMidsatFilterOutput();
     }     
 }    
 
@@ -28,7 +28,7 @@ function getFiltersState()
     
     // **************************************************** //
     
-    var collect  = document.forms["satform"].elements;
+    var collect  = document.forms["satFormMidsat"].elements;
     var elements = Array.prototype.slice.call(collect);
     elements.forEach( function (element) 
     {
@@ -127,31 +127,15 @@ function getFiltersState()
     });
 
 
-    for(i=0; i<(document.miscfilterform.length); i++)
+    for(i=0; i<(document.miscFilterFormMidsat.length); i++)
     {
-      var chbox = document.miscfilterform.elements[i];
+      var chbox = document.miscFilterFormMidsat.elements[i];
       if(chbox.checked && chbox.value!="is_cloud")
       {
           MiscFilters[chbox.value] = 1;
       }
     }   
 
-	if(document.miscfilterform.is_cloud)
-	{
-	    if(document.miscfilterform.is_cloud.checked)
-	    {
-	    	clouds_val = document.miscfilterform.max_cloud.value;
-	    	if(isNaN(parseInt(clouds_val,10)))
-	    	{
-	    		alert("Ошибка - значение облачности задано неверно");
-	    	}
-	    	else
-	    	{
-	    	  var max_clouds = parseInt(clouds_val,10);
-	    	  MiscFilters["cloudiness"] = clouds_val;  
-	    	}
-		}
-	}
     
     if(filterDevs.length==0)
     {
@@ -170,35 +154,35 @@ function getFiltersState()
     
     // **************************************
     
-    var filterOBJ = new Object();
+    var filterObj = new Object();
     
-    filterOBJ['sats'] = filterSats;
-    filterOBJ['devs'] = filterDevs;
-    filterOBJ['stns'] = filterStns;
-    filterOBJ['misc'] = MiscFilters;
-    filterOBJ['sources'] = filterSources;
+    filterObj['sats'] = filterSats;
+    filterObj['devs'] = filterDevs;
+    filterObj['stns'] = filterStns;
+    filterObj['misc'] = MiscFilters;
+    filterObj['sources'] = filterSources;
     
-    return filterOBJ;
+    return filterObj;
 }    
 
 
-function debugFilterOutput()
+function debugMidsatFilterOutput()
 {
-    for (i=0;i<filterObj['sources'].length;i++)
+    for (i=0;i<filterMidsatObj['sources'].length;i++)
     { 
-        console.info("SOURCE: "+filterObj['sources'][i]);
+        console.info("SOURCE: "+filterMidsatObj['sources'][i]);
     }
-    for (i=0;i<filterObj['stns'].length;i++)
+    for (i=0;i<filterMidsatObj['stns'].length;i++)
     { 
-        console.info("STN: "+filterObj['stns'][i]);
+        console.info("STN: "+filterMidsatObj['stns'][i]);
     }
-    for (i=0;i<filterObj['sats'].length;i++)
+    for (i=0;i<filterMidsatObj['sats'].length;i++)
     { 
-        console.info("SAT: "+filterObj['sats'][i]);
+        console.info("SAT: "+filterMidsatObj['sats'][i]);
     }
-    for(var mkey in filterObj['misc']) 
+    for(var mkey in filterMidsatObj['misc']) 
     {
-        console.info(mkey+"="+filterObj['misc'][mkey]);
+        console.info(mkey+"="+filterMidsatObj['misc'][mkey]);
     }
 }
 
@@ -241,10 +225,10 @@ function in_array(value, array)
     return false;
 }    
 
-function setALLSatsInFilter()
+function setAllMidsatSatsInFilter()
 {
     var model = getSatModelHrsat();
-    var collect  = document.forms["satform"].elements;
+    var collect  = document.forms["satFormMidsat"].elements;
     var elements = Array.prototype.slice.call(collect);
     elements.forEach( function (element) 
     {
@@ -266,10 +250,10 @@ function setALLSatsInFilter()
     }
 }    
 
-function setCheckboxesState(statesObj)
+function setMidsatCheckboxesState(statesObj)
 {
-    var model = getSatModelHrsat();
-    var collect  = document.forms["satform"].elements;
+    var model = getSatModelMidsat();
+    var collect  = document.forms["satFormMidsat"].elements;
     var elements = Array.prototype.slice.call(collect);
     elements.forEach( function (element) 
     {
@@ -300,7 +284,7 @@ function setCheckboxesState(statesObj)
       }
     });
 
-    model = getStnModelHrsat();
+    model = getStnModelMidsat();
     collect  = document.forms["stnform"].elements;
     elements = Array.prototype.slice.call(collect);
     elements.forEach( function (element) 
@@ -332,22 +316,9 @@ function setCheckboxesState(statesObj)
       }
     });
 
-	if(document.miscfilterform.is_cloud)
-	{
-	    if('cloudiness' in statesObj['MISC_FILTERS'])
-	    {
-	     document.miscfilterform.max_cloud.value = statesObj['MISC_FILTERS']['cloudiness'];
-	     dijit.byId("is_cloud").set("checked",true);
-	    }
-	    else
-	    {
-	     dijit.byId("is_cloud").set("checked",false);   
-	    }
-	}
-
-    for(i=0; i<(document.miscfilterform.length); i++)
+    for(i=0; i<(document.miscFilterFormMidsat.length); i++)
     {
-      var chbox = document.miscfilterform.elements[i];
+      var chbox = document.miscFilterFormMidsat.elements[i];
       if(chbox.type=="checkbox" && chbox.id!="is_cloud")
       {
     	    var chId = chbox.id;
@@ -373,7 +344,7 @@ function setCheckboxesState(statesObj)
 
 }
 
-function getCheckboxesState()
+function getMidsatCheckboxesState()
 {
     var results = new Object();
     
@@ -382,8 +353,8 @@ function getCheckboxesState()
     var chSatStates = new Array();
     var chStnStates = new Array();
     
-    var model = getSatModelHrsat();
-    var collect  = document.forms["satform"].elements;
+    var model = getSatModelMidsat();
+    var collect  = document.forms["satFormMidsat"].elements;
     var elements = Array.prototype.slice.call(collect);
     
     elements.forEach( function (element) 
@@ -402,8 +373,8 @@ function getCheckboxesState()
       }
     } );
 
-    model = getStnModelHrsat();
-    collect  = document.forms["stnform"].elements;
+    model = getStnModelMidsat();
+    collect  = document.forms["satFormMidsat"].elements;
     elements = Array.prototype.slice.call(collect);
     
     elements.forEach( function (element) 
@@ -427,7 +398,7 @@ function getCheckboxesState()
 
     results['STN_FILTERS_ID'] = chStnStates;
 
-    results['MISC_FILTERS'] = filterObj['misc'];
+    results['MISC_FILTERS'] = filterMidsatObj['misc'];
     
     // ============================= //
     
