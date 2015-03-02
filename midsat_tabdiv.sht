@@ -2,7 +2,7 @@
 
 <style type="text/css">
 .tab_mrsat_icon {
-	background-image: url('/geosmis/tabs/midsat2/icon_mrsat_dev.png'); 
+	background-image: url('/geosmis/tabs/midsat2/icon_mrsat.png'); 
 	width: 23px;
 	height: 23px;
 	margin-left: 3px;
