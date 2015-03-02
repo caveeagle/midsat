@@ -50,11 +50,11 @@ function reload_midsat_parameters()
     layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name+"_contour_sats"] = midsat_sats_str;
     layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name+"_contour_stations"] = midsat_stn_str;
 
-    if(poly_midfind_wkt)
+    if(midsat_poly_find_wkt)
     {
-    	layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name+"_contour_polyfind"] = poly_midfind_wkt;
-    	layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name_2+"_contour_polyfind"] = poly_midfind_wkt;
-    	layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name_3+"_contour_polyfind"] = poly_midfind_wkt;
+    	layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name+"_contour_polyfind"] = midsat_poly_find_wkt;
+    	layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name_2+"_contour_polyfind"] = midsat_poly_find_wkt;
+    	layers[seance_composite_layer_name+"_contour"].params[seance_composite_layer_name_3+"_contour_polyfind"] = midsat_poly_find_wkt;
 	}	
 
     layers[seance_composite_layer_name].params={};
@@ -65,11 +65,11 @@ function reload_midsat_parameters()
     layers[seance_composite_layer_name].params[seance_composite_layer_name+"_stations"] = midsat_stn_str;
 
 
-    if(poly_midfind_wkt)
+    if(midsat_poly_find_wkt)
     {
-    	layers[seance_composite_layer_name].params[seance_composite_layer_name+"_polyfind"] = poly_midfind_wkt;
-    	layers[seance_composite_layer_name].params[seance_composite_layer_name_2+"_polyfind"] = poly_midfind_wkt;
-    	layers[seance_composite_layer_name].params[seance_composite_layer_name_3+"_polyfind"] = poly_midfind_wkt;
+    	layers[seance_composite_layer_name].params[seance_composite_layer_name+"_polyfind"] = midsat_poly_find_wkt;
+    	layers[seance_composite_layer_name].params[seance_composite_layer_name_2+"_polyfind"] = midsat_poly_find_wkt;
+    	layers[seance_composite_layer_name].params[seance_composite_layer_name_3+"_polyfind"] = midsat_poly_find_wkt;
 	}	
 
 
@@ -160,7 +160,44 @@ function make_midsat_params()
        }
         
    }
+   
+    for(var mkey in filterMidsatObj['misc']) 
+    {
+        var filter_key = mkey;
+        
+        if(mkey=="is_polyfind_midsat")
+        {
+	 		var poly_obj = mapobj.ActivePolygonGet();
+	 		
+	 		if(!poly_obj)
+	 		{
+	 			if(project_language == 'rus')
+	 			{
+	 				globalAlert("Полигон не задан!");
+	 			}
+	 			if(project_language == 'eng')
+	 			{
+	 				globalAlert("Polygon not defined");
+	 			}
+	 		}
+	 		else
+	 		{
+	 		    midsat_poly_find_wkt = poly_obj.toWKT({coordOrder: 'yx', useMultiPolygon: 0});
+                fiter_array["polyfind"] = midsat_poly_find_wkt; 
+                continue;
+            }
+        };
+
+
+        fiter_array[filter_key] = filterObj['misc'][mkey];  
+    }
+   
+   
+    /* ======================================================= */   
+    
     midsat_filter = JSON.stringify(fiter_array);
+    
+    /* ======================================================= */
     
 	var srs_string = "";
     if(typeof(need_reproj)!="undefined")
@@ -178,7 +215,7 @@ function make_midsat_params()
 		satellite: midsat_sats_str,
 		station: midsat_stn_str,
 		srs: srs_string,
-		polyFind: poly_midfind_wkt,
+		polyFind: midsat_poly_find_wkt,
 		dt_from: midsat_date
 	} };
 
@@ -874,33 +911,7 @@ function composite_info()
  return false;
 }	
 
-var poly_midfind_wkt="";
-
-function poly_find_midsat()
-{
-	if(document.midsat_addparams_form.poly_find_ch)
-	{
-	    if(document.midsat_addparams_form.poly_find_ch.checked)
-	    {
-	 		var poly_obj = mapobj.ActivePolygonGet();
-	 		
-	 		if(!poly_obj)
-	 		{
-	 			globalAlert("Полигон не задан!");
-	 			document.midsat_addparams_form.poly_find_ch.checked = false;
-	 			return;
-	 		}
-	 
-	 		poly_midfind_wkt = poly_obj.toWKT({coordOrder: 'yx', useMultiPolygon: 0});
-		}
-		else
-		{
-			poly_midfind_wkt = "";
-		}
-	}
-	
-	reload_midsat_parameters();
-}	
+var midsat_poly_find_wkt="";
 
 function clearSelectionMidsat()
 {
