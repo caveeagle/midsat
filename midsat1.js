@@ -18,6 +18,19 @@ var seance_composite_layer_name = "combo_mrsat"; // BASE LAYER
 var seance_composite_layer_name_2 = "seance_composite";
 var seance_composite_layer_name_3 = "mrsat_tif_set";
 
+
+function INIT_MIDSAT_TAB()
+{
+    init_date_midsat();
+    init_midsat_products_list();
+    
+    metaobj_midsat = new smisMeta({  "NoFlash":1, "debug": 1, "debug_func" : function(msg){	tlog(msg); }, conf: MetaDATA_conf.midsat2, loadingHTML: _metadata_loadingHTML, nodataHTML: _metadata_nodataHTML } );
+    	
+	metaobj_midsat.renderMakeParams = midsat_makeMetaParams;
+	metaobj_midsat.OnMetaUpdate = midsat_OnMetaUpdate;
+	metaobj_midsat.OnMetaClick = midsat_OnMetaClick;
+}
+
 function reload_midsat_parameters() 
 {
 	make_midsat_params();
@@ -278,12 +291,23 @@ function midsat_makeMetaParams(opts)
 	if(opts.DATA.common.station) 
 	{ 
 		params.station = opts.DATA.common.station;
-	}
+	} 
+	
 	if(opts.DATA.common.satellite) 
 	{ 
 		params.satellite = opts.DATA.common.satellite; 
 
 	}
+
+    if(opts.DATA.common.device)
+    {
+    	    params.device = opts.DATA.common.device;	
+    }
+    else
+    {
+            params.device = opts.DATA.common.satellite;
+    }
+
 
 	var active_color = 'color="#010101"';
 	var passive_color = 'color="#C1C1C1"';
@@ -352,18 +376,6 @@ function midsat_makeMetaParams(opts)
     //  ######################################################## 
     //  ######################################################## 
 	 
-		var STN_NAME = opts.DATA.common.station;
-		
-	    params.sat_color = 'color="#000000"';
-	    params.clink_begin = "";
-	   	params.clink_end = "";
-
-
-
-    //  ######################################################## 
-    //  ######################################################## 
-
-
 	if(opts.DATA.common.station) 
 	{ 
 		if(typeof center_rename == 'function')
@@ -377,6 +389,20 @@ function midsat_makeMetaParams(opts)
 		params.satellite = planeta_sat_rename(opts.DATA.common.satellite);
 	}	
 	
+    if(project_language == 'rus')
+    {
+        params.scene_title = "Дата: "+params.dt+"\n";
+        params.scene_title = params.scene_title+"Спутник: "+params.satellite+"\n";
+        params.scene_title = params.scene_title+"Станция: "+opts.DATA.common.station+"\n";
+        params.scene_title = params.scene_title+"Прибор: "+opts.DATA.common.device+"\n";
+    }
+    if(project_language == 'eng')
+    {
+        params.scene_title = "Date: "+params.dt+"\n";
+        params.scene_title = params.scene_title+"Satellite: "+params.satellite+"\n";
+        params.scene_title = params.scene_title+"Station: "+opts.DATA.common.station+"\n";
+        params.scene_title = params.scene_title+"Device: "+opts.DATA.common.device+"\n";
+    }
 	
 	return params;
 }
