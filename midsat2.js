@@ -285,7 +285,7 @@ function setMidsatCheckboxesState(statesObj)
     });
 
     model = getStnModelMidsat();
-    collect  = document.forms["stnform"].elements;
+    collect  = document.forms["stnFormMidsat"].elements;
     elements = Array.prototype.slice.call(collect);
     elements.forEach( function (element) 
     {
@@ -374,7 +374,7 @@ function getMidsatCheckboxesState()
     } );
 
     model = getStnModelMidsat();
-    collect  = document.forms["satFormMidsat"].elements;
+    collect  = document.forms["stnFormMidsat"].elements;
     elements = Array.prototype.slice.call(collect);
     
     elements.forEach( function (element) 

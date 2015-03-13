@@ -29,6 +29,8 @@ function INIT_MIDSAT_TAB()
 	metaobj_midsat.renderMakeParams = midsat_makeMetaParams;
 	metaobj_midsat.OnMetaUpdate = midsat_OnMetaUpdate;
 	metaobj_midsat.OnMetaClick = midsat_OnMetaClick;
+	
+	filterMidsatObj = getMidsatFiltersState(); 
 }
 
 function reload_midsat_parameters() 
@@ -962,44 +964,8 @@ function getMidsatTabState()
 	obj['MIDSAT_LAYERS_STATE']['DATE'] = dojo.query("#midsat_date_field")[0].innerHTML;
 
   // --------------- //
-
-  obj['MIDSAT_LAYERS_STATE']['SATS'] = {};
-
-	var chset = dojo.query("#midsat_satelites_form_id  input[type=checkbox]");
-
-	chset.forEach(function(th)
-	{
-		if(th.name)
-		{
-				if(th.checked)
-				{
-					obj['MIDSAT_LAYERS_STATE']['SATS'][th.name] = 1;
-				}	
-				else 
-				{
-					obj['MIDSAT_LAYERS_STATE']['SATS'][th.name] = 0;
-				}
-    }
-  });	
   
-  obj['MIDSAT_LAYERS_STATE']['STN'] = {};
-
-	var chset = dojo.query("#midsat_stations_form_id  input[type=checkbox]");
-
-	chset.forEach(function(th)
-	{
-		if(th.name)
-		{
-				if(th.checked)
-				{
-					obj['MIDSAT_LAYERS_STATE']['STN'][th.name] = 1;
-				}	
-				else 
-				{
-					obj['MIDSAT_LAYERS_STATE']['STN'][th.name] = 0;
-				}
-    }
-  });	
+  obj['MIDSAT_LAYERS_STATE']['FILTER'] = getMidsatCheckboxesState();
 
   // --------------- //
 
@@ -1036,12 +1002,12 @@ function getMidsatTabState()
         
 	if(s[0])
 	{
-   var s1 = s[0]['dt'];
-   var s2 = s[0]['satellite'];
-   var s3 = s[0]['station'];
-   var sta = ""+s1+"-"+s2+"-"+s3;
+           var s1 = s[0]['dt'];
+           var s2 = s[0]['satellite'];
+           var s3 = s[0]['station'];
+           var sta = ""+s1+"-"+s2+"-"+s3;
    
-	 obj['MIDSAT_LAYERS_STATE']['SELECTED_SCENE'] = sta;
+	       obj['MIDSAT_LAYERS_STATE']['SELECTED_SCENE'] = sta;
 	}  
   
   // --------------- //
@@ -1053,53 +1019,16 @@ function getMidsatTabState()
 
 function setMidsatTabState(load_obj)
 {
-  var obj = load_obj['MIDSAT_LAYERS_STATE'];
+    var obj = load_obj['MIDSAT_LAYERS_STATE'];
 
 	dojo.query("#midsat_date_field")[0].innerHTML = obj['DATE'];
 	
 	// --------------- //
 
 
-	var chset = dojo.query("#midsat_satelites_form_id  input[type=checkbox]");
+	setMidsatCheckboxesState(obj['FILTER']);
 
-	chset.forEach(function(th)
-	{
-		if(th.name)
-		{
-		    if(th.name in obj['SATS'])
-		    {
-						 if(obj['SATS'][th.name]==1)
-						 {
-						 		th.checked=true;
-					 	 }
-					 	 else
-						 {
-						 		th.checked=false;
-					 	 }
-				}
-    }
-  });	
-
-
-	chset = dojo.query("#midsat_stations_form_id  input[type=checkbox]");
-
-	chset.forEach(function(th)
-	{
-		if(th.name)
-		{
-		    if(th.name in obj['STN'])
-		    {
-						 if(obj['STN'][th.name]==1)
-						 {
-						 		th.checked=true;
-					 	 }
-					 	 else
-						 {
-						 		th.checked=false;
-					 	 }
-				}
-    }
-  });	
+    newMidsatFiltersChanged();
   
  
   // --------------- //
